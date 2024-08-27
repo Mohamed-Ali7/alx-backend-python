@@ -10,8 +10,8 @@ from unittest.mock import patch, Mock, PropertyMock
 class TestGithubOrgClient(unittest.TestCase):
     """Tests GithubOrgClient() class"""
 
-
-    @parameterized.expand([("google", {"status": 200}), ("abc", {"status": 200})])
+    @parameterized.expand([("google", {"status": 200}),
+                           ("abc", {"status": 200})])
     @patch("client.get_json")
     def test_org(self, param1, response, mock_get_json):
         """Tests org() method"""
@@ -44,10 +44,10 @@ class TestGithubOrgClient(unittest.TestCase):
         mock_get_json.return_value = [{"name": "my_repo"}]
 
         with patch("client.GithubOrgClient._public_repos_url",
-                          new_callable=PropertyMock
-                          ) as mock_public_repos_url:
-        
-            self.assertEqual(GithubOrgClient("google").public_repos(), ['my_repo'])
+                   new_callable=PropertyMock) as mock_public_repos_url:
+
+            self.assertEqual(GithubOrgClient("google").public_repos(),
+                             ['my_repo'])
 
 
 if __name__ == "__main__":
